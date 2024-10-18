@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon/icon32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icon/icon16.png">
+    <title>Advoid Extension Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 1.2em;
+            padding: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            text-align: center;
+        }
+
+        select {
+            width: 90vw;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .explain {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body style="width: 500px; height: 250px; font-family: unset">
+    <audio style="display: none" controls id="bell" src="/mixkit-positive-notification-951.wav"></audio>
+    <script src="./popup.js"></script>
+    <form id="settingsForm">
+        <label for="settingSelect">Notification type</label>
+        <select id="settingSelect" name="notificationType">
+            <option id="bell" value="bell">Bell</option>
+            <option id="voice" value="voice">Voice</option>
+            <option id="none" value="none">None</option>
+        </select>
+
+        <label for="settingsCheckboxPause">Pause after ads</label>
+        <input type="checkbox" id="settingsCheckboxPause" name="pause" value="true">
+    </form>
+    <div>
+        <div style="display: flex">Ads Avoided:<div id="adsAvoided"></div>
+        </div>
+        <div style="display: flex">Time Saved:<div id="timeSaved"></div>
+        </div>
+    </div>
+</body>
+
+</html>

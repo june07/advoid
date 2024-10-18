@@ -1,0 +1,23 @@
+{
+	"name": "advoid",
+	"version": "0.1.0",
+	"main": "sw.js",
+	"scripts": {
+		"build": "npm run build:deps && npm run convert-sw && npm run zip",
+		"build:deps": "cross-env NODE_ENV=production node utils/watch-rollup.js",
+		"convert-sw": "node utils/convert-sw-to-background.js",
+		"zip": "node utils/update-manifest-and-zip.js"
+	},
+	"author": "june07 <667@june07.com> (https://june07.com/)",
+	"license": "MIT",
+	"devDependencies": {
+		"archiver": "^7.0.1",
+		"chokidar": "^3.6.0",
+		"cross-env": "^7.0.3",
+		"rollup": "^4.21.2"
+	},
+	"dependencies": {
+		"animate.css": "^4.1.1",
+		"socket.io-client": "^4.8.0"
+	}
+}
