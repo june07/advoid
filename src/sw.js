@@ -59,7 +59,7 @@ function injectListener(tabId) {
     Promise.all([
         chrome.scripting.insertCSS({
             target: { tabId, allFrames: false },
-            files: ["src/scripting.css", "node_modules/animate.css/animate.min.css"]
+            files: ["src/scripting.css", "dist/animate.min.css"]
         })
     ]).then(async () => {
         chrome.scripting.executeScript({
