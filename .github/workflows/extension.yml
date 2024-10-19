@@ -27,17 +27,18 @@ jobs:
             run: |
               if git rev-parse "v${{ steps.pkg.outputs.version }}" >/dev/null 2>&1; then
                 echo "Tag already exists"
-                echo "tag_created=false" >> $GITHUB_OUTPUT
                 exit 0
               else
                 echo "Tag does not exist"
-                echo "tag_created=true" >> $GITHUB_OUTPUT
               fi
           - name: Create Git tag
             if: steps.tag_check.outcome == 'success' && steps.tag_check.outputs.version == ''
             run: git tag v${{ steps.pkg.outputs.version }} && git push origin v${{ steps.pkg.outputs.version }}
           - name: Push tags
             run: git push --tags
+          - name: Set output
+            id: vars
+            run: echo "tag_created=true" >> $GITHUB_STATE
 
     build:
         needs: tag
