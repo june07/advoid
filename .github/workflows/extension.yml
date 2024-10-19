@@ -211,12 +211,8 @@ jobs:
                   key: ${{ runner.os }}-build
                   fail-on-cache-miss: true
 
-            - name: Set version
-              run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
-
             - name: Release
               uses: softprops/action-gh-release@v2
-              if: startsWith(github.ref, 'refs/tags/')
               with:
                   files: |
                       **/Advoid*.zip
