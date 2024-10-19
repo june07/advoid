@@ -15,6 +15,28 @@ on:
         branches: ['main']
 
 jobs:
+    tag:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+          - name: Get version from package.json
+            id: pkg
+            run: echo "::set-output name=version::$(node -p \"require('./package.json').version\")"
+          - name: Check if tag exists
+            id: tag_check
+            run: |
+              if git rev-parse "v${{ steps.pkg.outputs.version }}" >/dev/null 2>&1; then
+                echo "Tag already exists"
+                exit 0
+              else
+                echo "Tag does not exist"
+              fi
+          - name: Create Git tag
+            if: steps.tag_check.outcome == 'success' && steps.tag_check.outputs.version == ''
+            run: git tag v${{ steps.pkg.outputs.version }} && git push origin v${{ steps.pkg.outputs.version }}
+          - name: Push tags
+            run: git push --tags
+
     build:
         runs-on: ubuntu-latest
 
@@ -32,8 +54,8 @@ jobs:
             - run: npm ci --legacy-peer-deps
 
             - run: |
-                npm run build --if-present
-                ls -la
+                  npm run build --if-present
+                  ls -la
 
             - name: Set version
               run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
@@ -42,17 +64,17 @@ jobs:
               uses: actions/cache@v4
               id: build-cache
               with:
-                path: |
-                  package.json
-                  **/Advoid*.zip
-                key: ${{ runner.os }}-build
+                  path: |
+                      package.json
+                      **/Advoid*.zip
+                  key: ${{ runner.os }}-build
 
             - name: Upload zip artifact
               uses: actions/upload-artifact@v4
               with:
-                path: |
-                  **/Advoid*.zip
-
+                  path: |
+                      **/Advoid*.zip
+  
     deploy-edge:
         needs: build
         runs-on: ubuntu-latest
@@ -62,11 +84,11 @@ jobs:
               uses: actions/cache@v4
               id: build-cache
               with:
-                path: |
-                  package.json
-                  **/Advoid*.zip
-                key: ${{ runner.os }}-build
-                fail-on-cache-miss: true
+                  path: |
+                      package.json
+                      **/Advoid*.zip
+                  key: ${{ runner.os }}-build
+                  fail-on-cache-miss: true
 
             - name: Set version
               run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
@@ -151,11 +173,11 @@ jobs:
               uses: actions/cache@v4
               id: build-cache
               with:
-                path: |
-                  package.json
-                  **/Advoid*.zip
-                key: ${{ runner.os }}-build
-                fail-on-cache-miss: true
+                  path: |
+                      package.json
+                      **/Advoid*.zip
+                  key: ${{ runner.os }}-build
+                  fail-on-cache-miss: true
 
             - name: Set version
               run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
@@ -179,11 +201,11 @@ jobs:
               uses: actions/cache@v4
               id: build-cache
               with:
-                path: |
-                  package.json
-                  **/Advoid*.zip
-                key: ${{ runner.os }}-build
-                fail-on-cache-miss: true
+                  path: |
+                      package.json
+                      **/Advoid*.zip
+                  key: ${{ runner.os }}-build
+                  fail-on-cache-miss: true
 
             - name: Set version
               run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
@@ -192,5 +214,5 @@ jobs:
               uses: softprops/action-gh-release@v2
               if: startsWith(github.ref, 'refs/tags/')
               with:
-                files: |
-                  **/Advoid*.zip
+                  files: |
+                      **/Advoid*.zip
