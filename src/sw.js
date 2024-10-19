@@ -177,6 +177,7 @@ chrome.runtime.onMessageExternal.addListener(async (message, sender, sendRespons
             adsAvoided: updatedAdsAvoided,
             timeSaved: timeSaved + message.timeSaved
         })
+        sendResponse()
     }
     if (message.action === 'getStats') {
         const { adsAvoided, timeSaved } = await chrome.storage.local.get(['adsAvoided', 'timeSaved'])

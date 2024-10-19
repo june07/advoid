@@ -50,7 +50,7 @@
             // Create the iframe element
             const iframe = document.createElement('iframe')
             iframe.style.clipPath = clipPath
-            iframe.src = 'https://dev-blur.keycloak.june07.com/advoid'
+            iframe.src = 'https://blur.june07.com/advoid' // 'https://dev-blur.keycloak.june07.com/advoid'
             iframe.className = 'fade-in'
 
             // Append the iframe to the body
