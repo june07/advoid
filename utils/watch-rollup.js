@@ -15,15 +15,20 @@ const deps = [
     {
         input: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
         watch: `${watchDir}/bootstrap.min.css`,
+    },
+    {
+        input: 'node_modules/animate.css/animate.min.css',
+        watch: `${watchDir}/animate.min.css`,
     }
 ]
 const watchFiles = deps.map(dep => dep.watch)
 
 console.log({ watchFiles })
 
-if (!fs.existsSync(watchDir)) {
-    fs.mkdirSync(watchDir)
+if (fs.existsSync(watchDir)) {
+    fs.rmSync(watchDir, { recursive: true, force: true })
 }
+fs.mkdirSync(watchDir)
 const watcher = chokidar.watch(watchFiles, {
     persistent: process.env.NODE_ENV === 'production' ? false : true
 })
@@ -41,7 +46,7 @@ async function build() {
         if (!fs.existsSync(path)) {
             const dep = deps.find((dep) => dep.watch === path)
 
-            if (dep.input.match(/bootstrap|socket.io/)) {
+            if (dep.input.match(/animate.css|bootstrap|socket.io/)) {
                 console.log(`copying dep ${dep.input} to ${dep.watch}`)
                 fs.copyFileSync(dep.input, dep.watch)
             } else {
