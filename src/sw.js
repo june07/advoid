@@ -23,16 +23,16 @@ async function initSocketIO() {
     })
     sio
         .on('connect', () => {
-            console.info('connected to BLUR advoid namespace')
+            console.info('connected to BLUR ADvoid namespace')
         })
         .on('connect_error', error => {
-            console.error('connect error from BLUR advoid namespace: ', error)
+            console.error('connect error from BLUR ADvoid namespace: ', error)
         })
         .on('disconnect', reason => {
-            console.info('disconnected from BLUR advoid namespace: ', reason)
+            console.info('disconnected from BLUR ADvoid namespace: ', reason)
         })
         .on('error', errorMessage => {
-            console.error('error from BLUR advoid namespace: ', errorMessage)
+            console.error('error from BLUR ADvoid namespace: ', errorMessage)
         })
 }
 function generateSecureRandomString(length) {
