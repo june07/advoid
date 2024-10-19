@@ -1,0 +1,32 @@
+name: alerts
+on:
+  workflow_run:
+    workflows:
+      - extension
+    types:
+      - completed
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "$GITHUB_CONTEXT"
+
+    - name: Dump env
+      env:
+        ENV_JSON: ${{ toJson(env) }}
+      run: |
+        echo "$ENV_JSON"
+
+    - name: Call BrakeCODE API via GitHub Action
+      uses: june07/brakecode-alert-github-action@v1-beta8
+      with:
+        api-key: ${{ secrets.BRAKECODE_API_KEY }}
+        title: "GitHub workflow completed."
+        content: "${{ github.repository }}"
+        badge-text: "${{ github.repository }}"
+        badge-color: "#FF9800"
