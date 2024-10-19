@@ -15,10 +15,7 @@
                         clearInterval(interval)
                         // Send a message to the background script
                         try {
-                            chrome.runtime.sendMessage(id, { event: 'adTimerFound' }, () => {
-                                console.log('resolved')
-                                resolve()
-                            })
+                            chrome.runtime.sendMessage(id, { event: 'adTimerFound' }, resolve)
                         } catch (error) {
                             if (chrome.runtime.lastError) {
                                 console.error('Error sending message:', chrome.runtime.lastError)
