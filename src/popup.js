@@ -1,9 +1,17 @@
+document.addEventListener('mousemove', function () {
+    document.getElementById('main').classList.remove('d-none')
+})
 document.addEventListener('DOMContentLoaded', async function () {
     const settings = await getSettings()
-    const settingSelect = document.getElementById('settingSelect')
-    const settingsCheckboxPause = document.getElementById('settingsCheckboxPause')
+    const notificationType = document.getElementById('notificationType')
+    const pauseAfterAds = document.getElementById('pauseAfterAds')
+    const pauseDelay = document.getElementById('pauseDelay')
+    const pauseDelayContainer = document.querySelector('.pause-delay-container')
+    const cardTitle = document.querySelector('.card-title')
+    const cardText = document.querySelector('.card-text')
     let timeoutId
 
+    
     function closePage() {
         // Close the page after 5 seconds if no mouse movement is detected
         timeoutId = setTimeout(() => {
@@ -32,17 +40,45 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     })
 
-    document.getElementById('adsAvoided').innerHTML = (await chrome.storage.local.get('adsAvoided'))?.adsAvoided || 0
-    document.getElementById('timeSaved').innerHTML = formatDuration((await chrome.storage.local.get('timeSaved'))?.timeSaved || 0)
+    notificationType.value = settings.notificationType
+    notificationType.addEventListener('change', async function () {
+        await updateSetting({ [notificationType.id]: notificationType.value })
+    })
+    notificationType.addEventListener('mouseenter', async function () {
+        cardTitle.textContent = 'Notification Type'
+        cardText.textContent = 'Choose the type of notification to hear.'
+    })
 
-    settingSelect.value = settings.notificationType
-    settingSelect.addEventListener('change', async function () {
-        await updateSetting({ [settingSelect.name]: settingSelect.value })
+    pauseAfterAds.checked = settings.pause
+    pauseAfterAds.addEventListener('change', async function () {
+        await updateSetting({ [pauseAfterAds.id]: pauseAfterAds.checked })
+        togglePauseDelay()
     })
-    settingsCheckboxPause.checked = settings.pause
-    settingsCheckboxPause.addEventListener('change', async function () {
-        await updateSetting({ [settingsCheckboxPause.name]: settingsCheckboxPause.checked })
+    pauseAfterAds.addEventListener('mouseenter', async function () {
+        cardTitle.textContent = 'Pause After Ads'
+        cardText.textContent = 'Choose whether to pause after ads are completed.'
     })
+
+    pauseDelay.value = settings.pauseDelay / 1000
+    pauseDelay.addEventListener('change', async function () {
+        await updateSetting({ [pauseDelay.id]: pauseDelay.value * 1000 })
+    })
+    pauseDelay.addEventListener('mouseenter', async function () {
+        cardTitle.textContent = 'Pause Delay'
+        cardText.textContent = 'Choose the number of seconds to pause after ads are completed.'
+    })
+
+    // Function to toggle the visibility of the pause delay input
+    function togglePauseDelay() {
+        if (pauseAfterAds.value === 'true') {
+            pauseDelayContainer.classList.remove('d-none')
+        } else {
+            pauseDelayContainer.classList.add('d-none')
+        }
+    }
+
+    // Initialize visibility on page load
+    togglePauseDelay()
 
     // Start the 5-second timer to close the page
     closePage()
@@ -69,6 +105,16 @@ function formatDuration(milliseconds) {
     }
 
     return result.join(', ') || '0 seconds'
+}
+
+function getStats() {
+    return new Promise(resolve => {
+        // Sending a message from popup to service worker or background script
+        chrome.runtime.sendMessage({ action: 'getStats' }, function (stats) {
+            console.log('getStats:', JSON.stringify(stats))
+            resolve(stats)
+        })
+    })
 }
 
 function getSettings() {

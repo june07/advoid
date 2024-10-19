@@ -3,8 +3,8 @@
     const GA_DEBUG_ENDPOINT = 'https://www.google-analytics.com/debug/mp/collect'
 
     // Get via https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports
-    const MEASUREMENT_ID = 'G-LK39SZMK4L'
-    const API_SECRET = 'ufmBnx1eSXqM8renZVpzzw'
+    const MEASUREMENT_ID = 'G-PHK65VRWJH'
+    const API_SECRET = 'H2FP45gkROGazJY_6fQ2jA'
     const DEFAULT_ENGAGEMENT_TIME_MSEC = 100
 
     // Duration of inactivity after which a new session is created

@@ -9,18 +9,24 @@
             }
             console.log('Waiting for ad timer...')
             await new Promise(resolve => {
-                interval = setInterval(() => {
+                interval = setInterval(async () => {
                     const remainingTimeEl = document.querySelector('#dv-web-player.dv-player-fullscreen [class*="ad-timer-remaining-time"]')
                     if (remainingTimeEl) {
                         clearInterval(interval)
                         // Send a message to the background script
-                        chrome.runtime.sendMessage(id, { event: 'adTimerFound' }, () => {
+                        try {
+                            chrome.runtime.sendMessage(id, { event: 'adTimerFound' }, () => {
+                                console.log('resolved')
+                                resolve()
+                            })
+                        } catch (error) {
                             if (chrome.runtime.lastError) {
                                 console.error('Error sending message:', chrome.runtime.lastError)
-                            } else {
-                                resolve()
                             }
-                        })
+                            if (error) {
+                                console.error('Error sending message:', error)
+                            }
+                        }
                     }
                 })
             })
@@ -44,7 +50,7 @@
             // Create the iframe element
             const iframe = document.createElement('iframe')
             iframe.style.clipPath = clipPath
-            iframe.src = 'https://blur.june07.com/advoid'
+            iframe.src = 'https://dev-blur.keycloak.june07.com/advoid'
             iframe.className = 'fade-in'
 
             // Append the iframe to the body

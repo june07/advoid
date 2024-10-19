@@ -7,6 +7,14 @@ const deps = [
     {
         input: 'node_modules/socket.io-client/dist/socket.io.min.js',
         watch: `${watchDir}/socket.io.min.js`,
+    },
+    {
+        input: 'node_modules/bootstrap/dist/js/bootstrap.min.js',
+        watch: `${watchDir}/bootstrap.min.js`,
+    },
+    {
+        input: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
+        watch: `${watchDir}/bootstrap.min.css`,
     }
 ]
 const watchFiles = deps.map(dep => dep.watch)
@@ -33,7 +41,7 @@ async function build() {
         if (!fs.existsSync(path)) {
             const dep = deps.find((dep) => dep.watch === path)
 
-            if (dep.input.match(/nacl-fast|nacl-util|socket.io/)) {
+            if (dep.input.match(/bootstrap|socket.io/)) {
                 console.log(`copying dep ${dep.input} to ${dep.watch}`)
                 fs.copyFileSync(dep.input, dep.watch)
             } else {

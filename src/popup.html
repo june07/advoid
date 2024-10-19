@@ -6,54 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="/icon/icon32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icon/icon16.png">
-    <title>Advoid Extension Settings</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 1.2em;
-            padding: 10px;
-        }
-
-        label {
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.8em;
-            text-align: center;
-        }
-
-        select {
-            width: 90vw;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            border-radius: 10px;
-        }
-
-        .explain {
-            margin-top: 10px;
-        }
-    </style>
+    <link href="../dist/bootstrap.min.css" rel="stylesheet">
+    <link href="./popup.css" rel="stylesheet">
+    <title>Advoid Settings</title>
 </head>
 
-<body style="width: 500px; height: 250px; font-family: unset">
-    <audio style="display: none" controls id="bell" src="/mixkit-positive-notification-951.wav"></audio>
-    <script src="./popup.js"></script>
-    <form id="settingsForm">
-        <label for="settingSelect">Notification type</label>
-        <select id="settingSelect" name="notificationType">
-            <option id="bell" value="bell">Bell</option>
-            <option id="voice" value="voice">Voice</option>
-            <option id="none" value="none">None</option>
-        </select>
+<body style="width: 500px; font-family: unset">
+    <audio style="display: none" controls id="bell" src="/data/mixkit-positive-notification-951.wav"></audio>
 
-        <label for="settingsCheckboxPause">Pause after ads</label>
-        <input type="checkbox" id="settingsCheckboxPause" name="pause" value="true">
-    </form>
-    <div>
-        <div style="display: flex">Ads Avoided:<div id="adsAvoided"></div>
+    <div class="container mb-3 d-none" id="main">
+        <div class="card text-bg-light my-3">
+            <div class="card-header">Advoid Settings</div>
+            <div class="card-body">
+                <h5 class="card-title">Hover over a setting</h5>
+                <p class="card-text">To see it's description</p>
+            </div>
         </div>
-        <div style="display: flex">Time Saved:<div id="timeSaved"></div>
+        <!-- Settings Section -->
+        <div class="settings-section">
+            <div class="row mb-3">
+                <div class="col">
+                    <!-- Pause after Ads (Boolean) -->
+                    <div class="form-group">
+                        <label for="pauseAfterAds">Pause after ads:</label>
+                        <select class="form-control" id="pauseAfterAds">
+                            <option value="true">Pause</option>
+                            <option value="false">Continue</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col pause-delay-container d-none"> <!-- Pause Delay Container -->
+                    <!-- Pause Delay (Integer) -->
+                    <div class="form-group">
+                        <label for="pauseDelay">Pause delay (seconds):</label>
+                        <input type="number" class="form-control" id="pauseDelay" min="0" value="5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Type (Dropdown) -->
+            <div class="form-group">
+                <label for="notificationType">Notification type:</label>
+                <select class="form-control" id="notificationType">
+                    <option value="none">none</option>
+                    <option value="bell">bell</option>
+                    <option value="voice">voice</option>
+                </select>
+            </div>
         </div>
     </div>
+
+    <script src="../dist/bootstrap.min.js"></script>
+    <script src="./popup.js"></script>
 </body>
 
 </html>

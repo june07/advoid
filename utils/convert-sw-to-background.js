@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const manifest = require('../manifest.json')
 
 // Read the source file
 const sourceFilePath = path.join(__dirname, '../src/sw.js')
@@ -16,11 +15,6 @@ function replaceImportScripts(content) {
             .map(script => `import '${script}'`)
             .join('\n')
     })
-    update = update.replace('const { client_id: clientId, scopes } = await chrome.runtime.getManifest().oauth2', `
-const clientId = \'${manifest.oauth2.client_id}\'
-const scopes = \'${manifest.oauth2.scopes}\'
-    `)
-    update = update.replace(/await chrome.runtime.getManifest\(\)\.oauth2/, `const oauth2 = ${manifest.oauth2}\noauth2`)
 
     return update
 }

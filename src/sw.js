@@ -6,7 +6,7 @@ importScripts(
     './scripting.js',
 )
 
-const INSTALL_URL = 'https://june07.com/advoid-install/?utm_source=mfa&utm_medium=chrome_extension&utm_campaign=extension_install&utm_content=1'
+const INSTALL_URL = 'https://june07.com/advoid-install/?utm_source=advoid&utm_medium=chrome_extension&utm_campaign=extension_install&utm_content=1'
 const APP_SERVER = 'https://api.june07.com'
 let cache = {
     injected: {},
@@ -116,7 +116,7 @@ chrome.runtime.onInstalled.addListener(details => {
         googleAnalytics.fireEvent('install', { onInstalledReason: details.reason })
     }
 })
-chrome.webNavigation.onBeforeNavigate.addListener(details => {
+chrome.webNavigation.onCompleted.addListener(details => {
     const { url, tabId } = details
 
     if (url.match('https://www.amazon.com/gp/video')) {
@@ -133,22 +133,28 @@ chrome.webNavigation.onBeforeNavigate.addListener(details => {
 })
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     switch (message.type) {
-        case 'getSettings': settings.get(settings).then(sendResponse(settings))
+        case 'getSettings':
+            settings.get(settings).then(sendResponse(settings))
             break
         case 'updateSetting':
-            await settings.set({ [Object.keys(message.setting)[0]]: Object.values(message.setting)[0] })
+            settings.set({ [Object.keys(message.setting)[0]]: Object.values(message.setting)[0] })
             break
         case 'getAudioAction':
             sendResponse(cache.audioAction, cache.audioAction = false)
             break
+        case 'getStats':
+            chrome.storage.local.get(['adsAvoided', 'timeSaved']).then((settings) => sendResponse(settings))
+            break
     }
-    sendResponse({ success: true })
+    return true
 })
 chrome.runtime.onMessageExternal.addListener(async (message, sender, sendResponse) => {
     if (message.event === 'adTimerFound') {
         setMuteState(sender.tab.id, true)
+        sendResponse()
     } else if (message.event === 'adsCompleted') {
         setMuteState(sender.tab.id, false)
+        sendResponse()
     } else if (message.event === 'adsAvoided') {
         if (settings.notificationType === 'voice') {
             cache.audioAction = 'voice:Your movie is ready.'
@@ -157,13 +163,16 @@ chrome.runtime.onMessageExternal.addListener(async (message, sender, sendRespons
             cache.audioAction = 'bell'
             await chrome.action.openPopup()
         }
+        sendResponse()
     } else if (message.event === 'adAvoided') {
         // analytics.push({ event: 'adAvoided' })
         const { adsAvoided, timeSaved } = await chrome.storage.local.get(['adsAvoided', 'timeSaved'])
         const updatedAdsAvoided = adsAvoided ? adsAvoided + 1 : 1
 
-        await chrome.storage.local.set({ adsAvoided: updatedAdsAvoided })
-        await chrome.storage.local.set({ timeSaved: timeSaved + message.timeSaved })
+        await Promise.all([
+            chrome.storage.local.set({ adsAvoided: updatedAdsAvoided }),
+            chrome.storage.local.set({ timeSaved: timeSaved ? timeSaved + message.timeSaved : message.timeSaved })
+        ])
         sio.emit('adAvoided', {
             adsAvoided: updatedAdsAvoided,
             timeSaved: timeSaved + message.timeSaved
@@ -176,5 +185,5 @@ chrome.runtime.onMessageExternal.addListener(async (message, sender, sendRespons
     } else if (message.action === 'getUserId') {
         sendResponse(await userId())
     }
-    sendResponse({ success: true })
+    return true
 })

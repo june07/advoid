@@ -2,13 +2,13 @@
     analytics.push = async (options) => {
         const userInfo = (await chrome.storage.local.get('userInfo')).userInfo || await utilities.getUserInfo()
 
-        await fetch(`https://api.june07.com/mfa/${options.event}`, {
+        await fetch(`https://api.june07.com/advoid/${options.event}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                source: 'mfa',
+                source: 'advoid',
                 userInfo,
                 onInstalledReason: options.onInstalledReason
             })

@@ -32,6 +32,6 @@
 	"permissions": ["storage", "tabs", "scripting", "webNavigation"],
     "host_permissions": ["<all_urls>"],
     "externally_connectable": {
-        "matches": ["https://*.amazon.com/*", "https://*.june07.com/*"]
+        "matches": ["https://*.amazon.com/*", "https://*.june07.com/*", "http://127.0.0.1:8080/*"]
     }
 }

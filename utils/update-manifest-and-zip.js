@@ -38,6 +38,8 @@ function writeChromeManifest(originalManifest) {
 
         archive.pipe(output)
         archive.directory('./src', 'src')
+        archive.directory('./dist', 'dist')
+        archive.directory('./data', 'data')
         archive.directory('./icon', 'icon')
         archive.file(chromeManifestPath, { name: 'manifest.json' })
         archive.directory('./_locales', '_locales')
@@ -76,6 +78,8 @@ function writeEdgeManifest(originalManifest) {
 
         archive.pipe(output)
         archive.directory('./src', 'src')
+        archive.directory('./dist', 'dist')
+        archive.directory('./data', 'data')
         archive.directory('./icon', 'icon')
         archive.file(edgeManifestPath, { name: 'manifest.json' })
         archive.directory('./_locales', '_locales')
@@ -96,7 +100,6 @@ function writeFirefoxManifest(originalManifest) {
             id: `${package.name}-gecko@june07.com`
         }
     }
-    firefoxManifest.permissions = firefoxManifest.permissions.filter(permission => permission !== 'system.display')
     firefoxManifest.background = {
         scripts: ["src/background.js"],
         type: "module"
@@ -123,6 +126,8 @@ function writeFirefoxManifest(originalManifest) {
 
         archive.pipe(output)
         archive.directory('./src', 'src')
+        archive.directory('./dist', 'dist')
+        archive.directory('./data', 'data')
         archive.directory('./icon', 'icon')
         archive.file(firefoxManifestPath, { name: 'manifest.json' })
         archive.directory('./_locales', '_locales')
