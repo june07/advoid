@@ -8,7 +8,7 @@
    version="1.1"
    id="svg471"
    sodipodi:docname="logo-inkscape.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,16 +24,46 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="1.4183568"
-     inkscape:cx="444.5285"
-     inkscape:cy="266.15306"
-     inkscape:window-width="3094"
+     inkscape:cx="255.92996"
+     inkscape:cy="256.635"
+     inkscape:window-width="2275"
      inkscape:window-height="1528"
-     inkscape:window-x="633"
-     inkscape:window-y="1542"
+     inkscape:window-x="811"
+     inkscape:window-y="1527"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g8852" />
+     inkscape:current-layer="layer2" />
   <defs
      id="defs468">
+    <rect
+       x="162.15948"
+       y="162.86452"
+       width="191.06617"
+       height="171.32501"
+       id="rect1" />
+    <rect
+       x="69.094039"
+       y="83.899904"
+       width="382.13234"
+       height="318.67863"
+       id="rect13553" />
+    <rect
+       x="21.856278"
+       y="62.043627"
+       width="469.55745"
+       height="405.3987"
+       id="rect13537" />
+    <rect
+       x="43.712555"
+       y="103.64106"
+       width="419.49952"
+       height="303.16772"
+       id="rect13525" />
+    <rect
+       x="123.38221"
+       y="121.97213"
+       width="255.22492"
+       height="277.0812"
+       id="rect13251" />
     <marker
        style="overflow:visible"
        id="Arrow1L"
@@ -55,35 +85,41 @@
   <g
      id="g8831">
     <g
-       id="g8852">
-      <path
-         style="fill:none;stroke:#ff0000;stroke-width:6.61458;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
-         d="M 31.634112,64.168452 H 17.752916"
-         id="path2368-9" />
+       id="g8852"
+       style="display:inline">
       <circle
-         style="fill:#ffff00;stroke:#000000;stroke-width:10.5833;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#000000;fill-opacity:1;stroke:#0288d1;stroke-width:13.2292;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
          id="path1339"
          cx="67.73333"
-         cy="64.375572"
-         r="25.738585" />
-      <path
-         style="fill:#ffffff;stroke:#ff0000;stroke-width:6.61458;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1L)"
-         d="m 103.89631,63.747892 h 13.8812"
-         id="path2368" />
-      <path
-         style="fill:#ffffff;fill-opacity:0;stroke:#ff0000;stroke-width:6.61458;stroke-linecap:round;stroke-dasharray:none"
-         id="path8819"
-         sodipodi:type="arc"
-         sodipodi:cx="67.808067"
-         sodipodi:cy="-63.634544"
-         sodipodi:rx="35.909367"
-         sodipodi:ry="35.909367"
-         sodipodi:start="0"
-         sodipodi:end="3.1564614"
-         sodipodi:open="true"
-         sodipodi:arc-type="arc"
-         d="M 103.71743,-63.634544 A 35.909367,35.909367 0 0 1 85.608399,-32.447515 35.909367,35.909367 0 0 1 49.546008,-32.715621 35.909367,35.909367 0 0 1 31.90267,-64.168452"
-         transform="scale(1,-1)" />
+         cy="67.73333"
+         r="46.087311" />
     </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35.2777px;font-family:Fahkwang;-inkscape-font-specification:'Fahkwang, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:13.2292;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       x="51.112549"
+       y="54.283768"
+       id="text13634"><tspan
+         sodipodi:role="line"
+         id="tspan13632"
+         style="stroke-width:13.2292"
+         x="51.112549"
+         y="54.283768" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:46.9169px;font-family:Fahkwang;-inkscape-font-specification:'Fahkwang, Normal';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ffffff;stroke:none;stroke-width:19.5464;stroke-linecap:round"
+       x="31.724628"
+       y="84.388832"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="fill:#ffffff;stroke:none;stroke-width:19.5464"
+         x="31.724628"
+         y="84.388832">AD</tspan></text>
   </g>
 </svg>
