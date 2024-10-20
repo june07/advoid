@@ -40,6 +40,7 @@ jobs:
             id: vars
             run: echo "tag=v${{ steps.pkg.outputs.version }}" >> $GITHUB_OUTPUT
         outputs:
+            version: ${{ steps.pkg.outputs.version }}
             tag: ${{ steps.vars.outputs.tag }}
 
     build:
@@ -72,6 +73,7 @@ jobs:
               with:
                   path: |
                       package.json
+                      manifest.json
                       **/Advoid*.zip
                   key: ${{ runner.os }}-build
 
@@ -92,6 +94,7 @@ jobs:
               with:
                   path: |
                       package.json
+                      manifest.json
                       **/Advoid*.zip
                   key: ${{ runner.os }}-build
                   fail-on-cache-miss: true
@@ -181,6 +184,7 @@ jobs:
               with:
                   path: |
                       package.json
+                      manifest.json
                       **/Advoid*.zip
                   key: ${{ runner.os }}-build
                   fail-on-cache-miss: true
@@ -215,6 +219,7 @@ jobs:
               with:
                   path: |
                       package.json
+                      manifest.json
                       **/Advoid*.zip
                   key: ${{ runner.os }}-build
                   fail-on-cache-miss: true

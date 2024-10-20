@@ -11,27 +11,33 @@
     <title>ADvoid Settings</title>
 </head>
 
-<body style="width: 500px; font-family: unset">
+<body style="width: 500px; font-family: unset; background-color: black">
     <audio style="display: none" controls id="bell" src="/data/mixkit-positive-notification-951.wav"></audio>
-
-    <div class="container mb-3 d-none" id="main">
-        <div class="card text-bg-light my-3">
-            <div class="card-header">ADvoid Settings</div>
-            <div class="card-body">
-                <h5 class="card-title">Hover over a setting</h5>
-                <p class="card-text">To see it's description</p>
+    <div class="card bg-black">
+        <div class="row g-0">
+            <div class="col-2">
+                <a href="https://blur.june07.com/advoid?utm_source=advoid&utm_medium=chrome_extension&utm_campaign=extension_install&utm_content=1" target="_blank">
+                    <img src="/icon/logo-inkscape.svg" width="100" class="rounded-circle" alt="ADvoid Logo">
+                </a>
+            </div>
+            <div class="col-10">
+                <div class="card-body text-white" style="font-family: 'roboto', sans-serif">
+                    <h1 class="card-title display-5 mb-0"><span class="fw-bold">AD</span>void</h1>
+                    <p class="card-text pt-n4">Avoid Ads on Amazon Prime Video</p>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="container mb-3 d-none text-white" id="main">
         <!-- Settings Section -->
         <div class="settings-section">
             <div class="row mb-3">
                 <div class="col">
                     <!-- Pause after Ads (Boolean) -->
                     <div class="form-group">
-                        <label for="pauseAfterAds">Pause after ads:</label>
                         <select class="form-control" id="pauseAfterAds">
-                            <option value="true">Pause</option>
-                            <option value="false">Continue</option>
+                            <option value="true">pause</option>
+                            <option value="false">continue</option>
                         </select>
                     </div>
                 </div>
@@ -39,7 +45,6 @@
                 <div class="col pause-delay-container d-none"> <!-- Pause Delay Container -->
                     <!-- Pause Delay (Integer) -->
                     <div class="form-group">
-                        <label for="pauseDelay">Pause delay (seconds):</label>
                         <input type="number" class="form-control" id="pauseDelay" min="0" value="5">
                     </div>
                 </div>
@@ -47,7 +52,6 @@
 
             <!-- Notification Type (Dropdown) -->
             <div class="form-group">
-                <label for="notificationType">Notification type:</label>
                 <select class="form-control" id="notificationType">
                     <option value="none">none</option>
                     <option value="bell">bell</option>

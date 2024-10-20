@@ -1,3 +1,14 @@
 .tick {
     font-size: 2rem;
 }
+
+/* Extend Bootstrap styles for input elements */
+.form-control {
+    font-family: Arial Black, sans-serif;
+    /* Custom font */
+    font-weight: bold;
+    /* Chunky appearance */
+    font-size: 1.2rem;
+    /* Easy to read size */
+    text-align: center;
+}

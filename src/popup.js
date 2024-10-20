@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     const pauseDelayContainer = document.querySelector('.pause-delay-container')
     const cardTitle = document.querySelector('.card-title')
     const cardText = document.querySelector('.card-text')
-    let timeoutId
+    let cardTitleOG, cardTextOG, timeoutId, timeout
 
-    
+
     function closePage() {
         // Close the page after 5 seconds if no mouse movement is detected
         timeoutId = setTimeout(() => {
@@ -23,6 +23,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     function cancelCloseAction() {
         clearTimeout(timeoutId) // Cancel the timeout
         window.removeEventListener('mousemove', cancelCloseAction) // Remove the event listener so it doesn't trigger again
+    }
+    function resetCardText() {
+        if (timeout) clearTimeout(timeout)
+        timeout = setTimeout(() => {
+            cardTitle.innerHTML = cardTitleOG
+            cardText.innerHTML = cardTextOG
+        }, 1500)
     }
 
     chrome.runtime.sendMessage({ type: 'getAudioAction' }, function (action) {
@@ -45,8 +52,14 @@ document.addEventListener('DOMContentLoaded', async function () {
         await updateSetting({ [notificationType.id]: notificationType.value })
     })
     notificationType.addEventListener('mouseenter', async function () {
+        if (timeout) clearTimeout(timeout)
+        cardTitleOG = cardTitleOG || cardTitle.innerHTML
+        cardTextOG = cardTextOG || cardText.innerHTML
         cardTitle.textContent = 'Notification Type'
-        cardText.textContent = 'Choose the type of notification to hear.'
+        cardText.textContent = 'Audible notification when ads are completed.'
+    })
+    notificationType.addEventListener('mouseleave', async function () {
+        resetCardText()
     })
 
     pauseAfterAds.checked = settings.pause
@@ -55,8 +68,14 @@ document.addEventListener('DOMContentLoaded', async function () {
         togglePauseDelay()
     })
     pauseAfterAds.addEventListener('mouseenter', async function () {
+        if (timeout) clearTimeout(timeout)
+        cardTitleOG = cardTitleOG || cardTitle.innerHTML
+        cardTextOG = cardTextOG || cardText.innerHTML
         cardTitle.textContent = 'Pause After Ads'
-        cardText.textContent = 'Choose whether to pause after ads are completed.'
+        cardText.textContent = 'Pause after ads are completed.'
+    })
+    pauseAfterAds.addEventListener('mouseleave', async function () {
+        resetCardText()
     })
 
     pauseDelay.value = settings.pauseDelay / 1000
@@ -64,8 +83,14 @@ document.addEventListener('DOMContentLoaded', async function () {
         await updateSetting({ [pauseDelay.id]: pauseDelay.value * 1000 })
     })
     pauseDelay.addEventListener('mouseenter', async function () {
+        if (timeout) clearTimeout(timeout)
+        cardTitleOG = cardTitleOG || cardTitle.innerHTML
+        cardTextOG = cardTextOG || cardText.innerHTML
         cardTitle.textContent = 'Pause Delay'
-        cardText.textContent = 'Choose the number of seconds to pause after ads are completed.'
+        cardText.textContent = 'Seconds into the movie to pause.'
+    })
+    pauseDelay.addEventListener('mouseleave', async function () {
+        resetCardText()
     })
 
     // Function to toggle the visibility of the pause delay input
