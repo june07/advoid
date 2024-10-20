@@ -30,7 +30,7 @@
 		"service_worker": "/src/sw.js"
 	},
 	"permissions": ["storage", "tabs", "scripting", "webNavigation"],
-    "host_permissions": ["<all_urls>"],
+    "host_permissions": ["https://*.amazon.com/*", "https://*.june07.com/*", "http://127.0.0.1:8080/*"],
     "externally_connectable": {
         "matches": ["https://*.amazon.com/*", "https://*.june07.com/*", "http://127.0.0.1:8080/*"]
     }
