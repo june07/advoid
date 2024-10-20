@@ -1,6 +1,9 @@
 .tick {
     font-size: 2rem;
 }
+.hide {
+    display: none;
+}
 
 /* Extend Bootstrap styles for input elements */
 .form-control {

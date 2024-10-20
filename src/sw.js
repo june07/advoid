@@ -140,10 +140,11 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             settings.set({ [Object.keys(message.setting)[0]]: Object.values(message.setting)[0] })
             break
         case 'getAudioAction':
-            sendResponse(cache.audioAction, cache.audioAction = false)
+            sendResponse(cache.audioAction)
+            cache.audioAction = false
             break
         case 'getStats':
-            chrome.storage.local.get(['adsAvoided', 'timeSaved']).then((settings) => sendResponse(settings))
+            chrome.storage.local.get(['adsAvoided', 'timeSaved']).then((stats) => sendResponse(stats))
             break
     }
     return true

@@ -1,6 +1,6 @@
 (async function (settings) {
     settings.defaultSettings = {
-        pause: true,
+        pauseAfterAds: 'true',
         pauseDelay: 1500,
         notificationType: 'bell',
     }
