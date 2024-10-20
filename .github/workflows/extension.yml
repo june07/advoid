@@ -38,7 +38,8 @@ jobs:
             run: git push --tags
           - name: Set output
             id: vars
-            run: echo "tag_created=true" >> $GITHUB_OUTPUT
+            run: |
+                echo "tag=v${{ steps.pkg.outputs.version }}" >> $GITHUB_OUTPUT
 
     build:
         needs: tag
@@ -199,6 +200,7 @@ jobs:
     deploy-github:
         needs: [tag,build]
         runs-on: ubuntu-latest
+        if: startsWith(github.ref, 'refs/tags/') || needs.tag.outputs.tag != ''
         steps:
             - name: Restore cache build files
               uses: actions/cache@v4
@@ -213,5 +215,6 @@ jobs:
             - name: Release
               uses: softprops/action-gh-release@v2
               with:
+                  tag_name: ${{ needs.tag.outputs.tag }}
                   files: |
                       **/Advoid*.zip
