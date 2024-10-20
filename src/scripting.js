@@ -88,7 +88,7 @@
             setTimeout(() => {
                 document.body.removeChild(iframe)
 
-                if (settings.pause) {
+                if (settings.pauseAfterAds === 'true') {
                     setTimeout(() => {
                         Array.from(document.querySelectorAll('video')).find(v => `${v.src}`.startsWith('blob')).pause()
                     }, settings.pauseDelay)
