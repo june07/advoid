@@ -38,9 +38,12 @@ jobs:
             run: git push --tags
           - name: Set output
             id: vars
-            run: echo "tag=v${{ steps.pkg.outputs.version }}" >> $GITHUB_OUTPUT
+            run: |
+                echo "tag=v${{ steps.pkg.outputs.version }}" >> $GITHUB_OUTPUT
+                echo "normalVersion=$(echo ${{ steps.pkg.outputs.version }} | 's/[^a-zA-Z0-9._-]/_/g')" >> $GITHUB_OUTPUT
         outputs:
             version: ${{ steps.pkg.outputs.version }}
+            version: ${{ steps.pkg.outputs.normalVersion }}
             tag: ${{ steps.vars.outputs.tag }}
 
     build:
@@ -75,7 +78,7 @@ jobs:
                       package.json
                       manifest.json
                       **/Advoid*.zip
-                  key: ${{ runner.os }}-build
+                  key: ${{ runner.os }}-${{ needs.tag.outputs.normalVersion }}-build
 
             - name: Upload zip artifact
               uses: actions/upload-artifact@v4
@@ -96,7 +99,7 @@ jobs:
                       package.json
                       manifest.json
                       **/Advoid*.zip
-                  key: ${{ runner.os }}-build
+                  key: ${{ runner.os }}-${{ needs.tag.outputs.normalVersion }}-build
                   fail-on-cache-miss: true
 
             - name: Set version
@@ -186,7 +189,7 @@ jobs:
                       package.json
                       manifest.json
                       **/Advoid*.zip
-                  key: ${{ runner.os }}-build
+                  key: ${{ runner.os }}-${{ needs.tag.outputs.normalVersion }}-build
                   fail-on-cache-miss: true
 
             - name: Set version
@@ -221,7 +224,7 @@ jobs:
                       package.json
                       manifest.json
                       **/Advoid*.zip
-                  key: ${{ runner.os }}-build
+                  key: ${{ runner.os }}-${{ needs.tag.outputs.normalVersion }}-build
                   fail-on-cache-miss: true
 
             - name: Release
