@@ -43,7 +43,7 @@ jobs:
                 echo "normalVersion=$(echo ${{ steps.pkg.outputs.version }} | 's/[^a-zA-Z0-9._-]/_/g')" >> $GITHUB_OUTPUT
         outputs:
             version: ${{ steps.pkg.outputs.version }}
-            version: ${{ steps.pkg.outputs.normalVersion }}
+            normalVersion: ${{ steps.pkg.outputs.normalVersion }}
             tag: ${{ steps.vars.outputs.tag }}
 
     build:
