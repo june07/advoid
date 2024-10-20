@@ -12,3 +12,8 @@
     /* Easy to read size */
     text-align: center;
 }
+footer {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-size: 0.9rem;
+    color: #E0E0E0;
+}

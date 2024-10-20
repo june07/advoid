@@ -1,5 +1,5 @@
 document.addEventListener('mousemove', function () {
-    document.getElementById('main').classList.remove('d-none')
+    Array.from(document.querySelectorAll('.d-none')).forEach(el => el.classList.remove('d-none'))
 })
 document.addEventListener('DOMContentLoaded', async function () {
     const settings = await getSettings()
