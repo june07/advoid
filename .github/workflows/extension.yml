@@ -38,8 +38,9 @@ jobs:
             run: git push --tags
           - name: Set output
             id: vars
-            run: |
-                echo "tag=v${{ steps.pkg.outputs.version }}" >> $GITHUB_OUTPUT
+            run: echo "tag=v${{ steps.pkg.outputs.version }}" >> $GITHUB_OUTPUT
+        outputs:
+            tag: ${{ steps.vars.outputs.tag }}
 
     build:
         needs: tag
