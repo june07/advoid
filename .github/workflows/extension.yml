@@ -199,7 +199,6 @@ jobs:
     deploy-github:
         needs: [tag,build]
         runs-on: ubuntu-latest
-        if: startsWith(github.ref, 'refs/tags/') || needs.tag.outputs.tag_created == 'true'
         steps:
             - name: Restore cache build files
               uses: actions/cache@v4
