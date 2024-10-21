@@ -40,7 +40,7 @@ jobs:
             id: vars
             run: |
                 echo "tag=v${{ steps.pkg.outputs.version }}" >> $GITHUB_OUTPUT
-                echo "normalVersion=$(echo ${{ steps.pkg.outputs.version }} | 's/[^a-zA-Z0-9._-]/_/g')" >> $GITHUB_OUTPUT
+                echo "normalVersion=$(echo ${{ steps.pkg.outputs.version }} | sed 's/[^a-zA-Z0-9._-]/_/g')" >> $GITHUB_OUTPUT
         outputs:
             version: ${{ steps.pkg.outputs.version }}
             normalVersion: ${{ steps.pkg.outputs.normalVersion }}
@@ -60,6 +60,7 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
             - run: npm ci --legacy-peer-deps
 
             - run: |
