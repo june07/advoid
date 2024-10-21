@@ -1,6 +1,6 @@
 {
 	"name": "advoid",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"main": "sw.js",
 	"scripts": {
 		"build": "npm run build:deps && npm run convert-sw && npm run zip",

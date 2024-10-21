@@ -159,10 +159,12 @@ chrome.runtime.onMessageExternal.addListener(async (message, sender, sendRespons
     } else if (message.event === 'adsAvoided') {
         if (settings.notificationType === 'voice') {
             cache.audioAction = 'voice:Your movie is ready.'
-            await chrome.action.openPopup()
+            const window = await chrome.windows.update(sender.tab.windowId, { focused: true })
+            await chrome.action.openPopup({ windowId: window.id })
         } else if (settings.notificationType === 'bell') {
             cache.audioAction = 'bell'
-            await chrome.action.openPopup()
+            const window = await chrome.windows.update(sender.tab.windowId, { focused: true })
+            await chrome.action.openPopup({ windowId: window.id })
         }
         sendResponse()
     } else if (message.event === 'adAvoided') {
