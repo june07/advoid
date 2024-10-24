@@ -114,6 +114,12 @@ chrome.runtime.onInstalled.addListener(details => {
         chrome.tabs.create({ url: INSTALL_URL })
         // analytics.push({ event: 'install', onInstalledReason: details.reason })
         googleAnalytics.fireEvent('install', { onInstalledReason: details.reason })
+        // reload any prime tabs if already open
+        chrome.tabs.query({ url: 'https://www.amazon.com/gp/video/*' }).then(tabs => {
+            tabs.forEach(tab => {
+                chrome.tabs.reload(tab.id)
+            })
+        })
     }
 })
 chrome.webNavigation.onCompleted.addListener(details => {
