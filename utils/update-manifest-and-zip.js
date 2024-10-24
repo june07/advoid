@@ -94,6 +94,7 @@ function writeFirefoxManifest(originalManifest) {
 
     delete firefoxManifest.key
     delete firefoxManifest.oauth2
+    delete firefoxManifest.externally_connectable
 
     firefoxManifest.browser_specific_settings = {
         gecko: {
